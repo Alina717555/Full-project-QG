@@ -1,0 +1,196 @@
+{% extends "english/base.html" %}
+{% load static %}
+
+{%block css%}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% endblock %}
+
+
+{%block content%}
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">Welcome 1st Year Students!</div>
+    <h1 class="hero-title">Unlock Your Learning Potential</h1>
+    <p class="subtitle">Access all course materials, resources, and support in one centralized platform designed for APEC PetroTechnic students.</p>
+    
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="feature-text">
+          <h4>All Materials in One Place</h4>
+          <p>Organized course content, lectures, and resources</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="feature-text">
+          <h4>Personalized Learning Path</h4>
+          <p>Resources tailored to guide your academic journey</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="feature-text">
+          <h4>Community Support</h4>
+          <p>Connect with peers and instructors</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="buttons">
+      <a href="{% url 'english:catalog' %}" class="btn-primary">
+        <i class="fas fa-book-open"></i> Explore Courses
+      </a>
+      <a href="{% url 'users:register' %}" class="btn-secondary">
+        <i class="fas fa-user-plus"></i> Register Now
+      </a>
+    </div>
+    
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Course Materials</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">300+</span>
+        <span class="stat-label">Active Students</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Access</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="illustration">
+    <div class="floating-element element-1">
+      <i class="fas fa-book"></i>
+    </div>
+    <div class="floating-element element-2">
+      <i class="fas fa-laptop-code"></i>
+    </div>
+    <div class="floating-element element-3">
+      <i class="fas fa-certificate"></i>
+    </div>
+    <img src="static/images/boy and girl sitting in front of laptop.png" alt="students studying" class="hero-image">
+  </div>
+</section>
+
+<section class="news">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="title-icon">
+        <i class="fas fa-bullhorn"></i>
+      </div>
+      <h2>English Club News & Updates</h2>
+    </div>
+    <p class="section-subtitle">Stay informed about the latest activities and resources</p>
+  </div>
+
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-image">
+        <img src="static/images/news1.png" alt="stickers">
+        <div class="image-overlay">
+          <a href="#" class="btn-image">View Collection</a>
+        </div>
+      </div>
+      <div class="news-content">
+        <h3><i class="fas fa-sticky-note"></i> New Stickers Collection </h3>
+        <p>We've launched a fresh set of colorful stickers designed especially for our English Club!</p>
+        <div class="news-meta">
+          <span><i class="far fa-calendar"></i> April 15, 2023</span>
+          <span><i class="fas fa-users"></i> Club Members</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-image">
+        <img src="static/images/news2.png" alt="flyer">
+        <div class="image-overlay">
+          <a href="#" class="btn-image">Get Flyer</a>
+        </div>
+      </div>
+      <div class="news-content">
+        <h3><i class="fas fa-newspaper"></i> New Flyers Are Out! </h3>
+        <p>Fresh flyers for our English Club including all key information and a QR code.</p>
+        <div class="news-meta">
+          <span><i class="far fa-calendar"></i> April 10, 2023</span>
+          <span><i class="fas fa-download"></i> Download</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="news-image">
+        <div class="placeholder-image">
+          <i class="fas fa-comments"></i>
+          <p>Speaking Session</p>
+        </div>
+        <div class="image-overlay">
+          <a href="#" class="btn-image">Join Session</a>
+        </div>
+      </div>
+      <div class="news-content">
+        <h3><i class="fas fa-microphone"></i> Speaking Session</h3>
+        <p>Join us for an interactive speaking session focused on professional communication skills.</p>
+        <div class="news-meta">
+          <span><i class="far fa-calendar"></i> April 20, 2023</span>
+          <span><i class="fas fa-clock"></i> 3:00 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-all">
+    <a href="#" class="btn-view-all">
+      View All News <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</section>
+
+<section class="app-promo">
+  <div class="app-content">
+    <h2>Access Courses On The Go</h2>
+    <p>Download our mobile app for seamless learning experience anytime, anywhere.</p>
+    <div class="app-features">
+      <div class="app-feature">
+        <i class="fas fa-sync-alt"></i>
+        <span>Sync Across Devices</span>
+      </div>
+      <div class="app-feature">
+        <i class="fas fa-bell"></i>
+        <span>Notifications</span>
+      </div>
+      <div class="app-feature">
+        <i class="fas fa-download"></i>
+        <span>Offline Access</span>
+      </div>
+    </div>
+    <div class="app-buttons">
+      <a href="#" class="btn-app"><i class="fab fa-apple"></i> App Store</a>
+      <a href="#" class="btn-app"><i class="fab fa-google-play"></i> Google Play</a>
+    </div>
+  </div>
+  
+  <div class="app-visual">
+      <div class="phone-mockup">
+        <img src="static/images/phone.png" alt="phone" class="phone-image">
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%endblock%}

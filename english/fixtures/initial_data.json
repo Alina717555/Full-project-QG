@@ -1,0 +1,122 @@
+[
+    {
+        "model": "english.lesson",
+        "pk": 1,
+        "fields": {
+            "title": "COURSE SUPER",
+            "slug": "super",
+            "description": "The Super Course is created for learners who want to move beyond everyday communication and start speaking more naturally and independently...",
+            "price": "14000.00",
+            "duration": 9,
+            "age_range": "15-16 yo",
+            "level": "B1-B2",
+            "content_html": "Super Course Details Dive deep into structured conversation and advanced vocabulary building...",
+            "materials": [
+                "Adjective + nouns",
+                "Possessive pronouns",
+                "Ask harder questions",
+                "Answer open questions",
+                "Past Simple",
+                "Present/Past Continuous",
+                "Conjuctions",
+                "Marks"
+            ]
+        }
+    },
+    {
+        "model": "english.lesson",
+        "pk": 2,
+        "fields": {
+            "title": "COURSE HIGH",
+            "slug": "high",
+            "description": "The High Course is focused on achieving fluency and mastery over complex academic and professional language...",
+            "price": "20000.00",
+            "duration": 12,
+            "age_range": "17+ yo",
+            "level": "C1-C2",
+            "content_html": "High Course Details Master sophisticated grammar structures and idiomatic expressions...",
+            "materials": [
+                "Using verbs",
+                "Learning pronouns",
+                "Present Simple",
+                "Articles (a/an/the)",
+                "Using adjectives",
+                "Prepositions of place",
+                "Tell the time",
+                "Using irregular verbs"
+            ]
+        }
+    },
+    {
+        "model": "english.lesson",
+        "pk": 3,
+        "fields": {
+            "title": "COURSE MIDDLE",
+            "slug": "middle",
+            "description": "The Middle Course is designed for foundational learners to build confidence in everyday conversations and basic grammar...",
+            "price": "10000.00",
+            "duration": 6,
+            "age_range": "10-14 yo",
+            "level": "A2-B1",
+            "content_html": "Middle Course Details</h1><p>Focuses on core verbs, simple tense usage, and common situational phrases...",
+            "materials": [
+                "Introducing yourself",
+                "Asking questions",
+                "Using question words",
+                "Singular and plural",
+                "Jobs and careers",
+                "Animals",
+                "School life",
+                "Everyday life"
+            ]
+        }
+    },
+    {
+        "model": "english.lesson",
+        "pk": 4,
+        "fields": {
+            "title": "COURSE EXPERT",
+            "slug": "expert",
+            "description": "The Expert Course provides intense practice in specialized domain language, public speaking, and critical analysis...",
+            "price": "25000.00",
+            "duration": 10,
+            "age_range": "17+ yo",
+            "level": "C2",
+            "content_html": "Expert Course Details</h1><p>Prepares students for international examinations and high-level professional communication...",
+            "materials": [
+                "Present Perfect",
+                "Complex Sentences",
+                "Using complex words",
+                "Determining the stance",
+                "Debates and Arguments",
+                "Conditionals",
+                "Future time",
+                "Conclusion"
+            ]
+        }
+    },
+    {
+        "model": "english.review",
+        "pk": 1,
+        "fields": {
+            "lesson": 1,
+            "user": 1,
+            "rating": 5,
+            "comment": "The Super Course significantly boosted my speaking confidence!",
+            "is_approved": true,
+            "created_at": "2025-12-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "english.review",
+        "pk": 2,
+        "fields": {
+            "lesson": 3,
+            "user": 1,
+            "rating": 4,
+            "comment": "Great content for beginners. Highly recommend the Middle Course.",
+            "is_approved": true,
+            "created_at": "2025-12-05T12:00:00Z"
+        }
+    }
+]

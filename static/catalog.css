@@ -1,0 +1,261 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.container {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    border-radius: 20px;
+    padding: 35px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.card img {
+    position: absolute;
+    right: 10px;
+    bottom: 90px;
+    width: 180px;
+}
+
+.tag-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    background: rgba(255,255,255,0.25);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    width: 70%;
+    line-height: 1.4em;
+    margin-bottom: 20px;
+}
+
+.price {
+    background: white;
+    color: black;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.learn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.card.middle { background: #7569FF; }
+.card.high { background: #FF7A59; }
+.card.super { background: #6EC56E; }
+.card.expert { background: #7C55C4; }
+
+.level-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.level-card {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.level-card .label {
+    font-size: 32px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.level-card .hours {
+    font-size: 14px;
+    text-align: center;
+}
+
+.level-card .info {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 20px;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.level-card:hover .info {
+    opacity: 1;
+}
+
+.level-card.a1 { background: #e8c42d; }
+.level-card.a2 { background: #f17a3f; }
+.level-card.b1 { background: #7b61ff; }
+.level-card.b2 { background: #66c572; }
+.level-card.c1 { background: #a455b5; }
+
+/* ---------------------- KNOW LEVEL SECTION ------------------------- */
+
+.level-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    flex-wrap: wrap;
+    gap: 100px;
+}
+
+.level-text {
+    max-width: 500px;
+}
+
+.level-text h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.level-text p {
+    font-size: 18px;
+    margin: 10px 0 30px;
+    color: #7b61ff;
+}
+.learn a {
+    text-decoration: none;
+    color: #fff
+}
+button {
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 2px solid #7b61ff;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+
+.illustration img {
+    width: 330px;
+}
+.certificate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    flex-wrap: wrap;
+    gap: 100px;
+}
+.certificate-text {
+    max-width: 500px;
+}
+
+.certificate-text h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.certificate-text p {
+    font-size: 14px;
+    margin: 10px 0 30px;
+    color: #5DB561;
+}
+.illustration-certificate img {
+    width: 330px;
+}
+
+.catalog-search {
+    display: flex;           /* make input and button align horizontally */
+    width: 100%;
+    max-width: none;
+    position: relative;
+}
+
+.catalog-search-input {
+    flex: 1;                 /* input takes all remaining space */
+    padding: 16px 20px;
+    border: 2px solid #d4c8ff;
+    border-radius: 50px 0 0 50px; /* round only left side */
+    font-size: 16px;
+    background: #faf8ff;
+    outline: none;
+}
+
+.catalog-search-btn {
+    padding: 0 20px;
+    border: 2px solid #d4c8ff;
+    border-left: none;        /* remove double border between input and button */
+    border-radius: 0 50px 50px 0; /* round only right side */
+    background-color: #d4c8ff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.catalog-search-wrapper {
+    width: 100%;
+    position: relative;
+    top: -25px; /* shifts the search bar upwards */
+}

@@ -1,0 +1,100 @@
+[
+    {
+      "model": "english.lesson",
+      "pk": 1,
+      "fields": {
+        "title": "Expert English Program",
+        "slug": "expert",
+        "description": "Advanced English deep-dive course.",
+        "price": "18000.00",
+        "duration": 12 ,
+        "age_range": "15-16",
+        "level": "B2-C1",
+        "content_html": "<p>Advanced grammar and writing.</p>",
+        "materials": [
+          "Present Perfect",
+          "Complex Sentences",
+          "Using complex words",
+          "Determining the stance",
+          "Debates and Arguments",
+          "Conditionals",
+          "Future time",
+          "Conclusion"
+        ]
+      }
+    },
+    {
+      "model": "english.lesson",
+      "pk": 2,
+      "fields": {
+        "title": "Middle Level English",
+        "slug": "middle",
+        "description": "Mid-level English course.",
+        "price": "10000.00",
+        "duration": 3,
+        "age_range": "15-16",
+        "level": "A1-A2",
+        "content_html": "<p>Intermediate grammar and vocabulary.</p>",
+        "materials": [
+          "Introducing yourself",
+          "Asking questions",
+          "Using question words",
+          "Singular and plural",
+          "Jobs and careers",
+          "Animals",
+          "School life",
+          "Everyday life"
+        ]
+      }
+    },
+    {
+      "model": "english.lesson",
+      "pk": 3,
+      "fields": {
+        "title": "Super English",
+        "slug": "super",
+        "description": "Fun, engaging upper-level English course.",
+        "price": "14000.00",
+        "duration": 9,
+        "age_range": "15-16",
+        "level": "B1-B2",
+        "content_html": "<p>Creative tasks and advanced topics.</p>",
+        "materials": [
+          "Adjective + nouns",
+          "Possessive pronouns",
+          "Ask harder questions",
+          "Answer open questions",
+          "Past Simple",
+          "Present/Past Continuous",
+          "Conjuctions",
+          "Marks"
+        ]
+      }
+    },
+    {
+      "model": "english.lesson",
+      "pk": 4,
+      "fields": {
+        "title": "High Level English",
+        "slug": "high",
+        "description": "Upper-intermediate English course.",
+        "price": "12000.00",
+        "duration": 6,
+        "age_range": "15-16",
+        "level": "A2-B1",
+        "content_html": "<p>Upper intermediate topics.</p>",
+        "materials": [
+          "Using verbs",
+          "Learning pronouns",
+          "Present Simple",
+          "Articles (a/an/the)",
+          "Using adjectives",
+          "Prepositions of place",
+          "Tell the time",
+          "Using irregular verbs"
+
+        ]
+      }
+    }
+  ]
+  

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}QG Platform{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="stylesheet" href="{% static 'registration.css' %}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    {# LOGO IS HERE - We will ensure its CSS makes it stick to the top left #}
+    <div class="logo">
+        <a href="{% url 'english:index' %}">
+            <img src="{% static 'images/logo.png' %}" alt="QG logo">
+        </a>
+    </div>
+
+    {% block content %}{% endblock %}
+    
+    {# Footer position might also be an issue if it doesn't align correctly #}
+    <div class="footer">
+        <div class="social-links">
+          <a href="#">Instagram</a>
+          <a href="#">|</a>
+          <a href="#">Email</a>
+          <a href="#">|</a>
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

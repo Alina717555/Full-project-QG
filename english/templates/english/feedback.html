@@ -1,0 +1,93 @@
+{% extends 'english/base.html' %}
+{% load static %}
+{% load lesson_extras %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'feedback.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="feedback-container">
+
+  <section class="ratings-overview">
+    <div class="rating-distribution">
+      <ul>
+        {% for star in "54321" %}
+          <li>
+            <span class="label">{% if star == "5" %}FIVE{% elif star == "4" %}FOUR{% elif star == "3" %}THREE{% elif star == "2" %}TWO{% else %}ONE{% endif %}</span>
+            <i class="fas fa-star"></i>
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width: {{ percents|dict_get:star|default:0 }}%;"></div>
+            </div>
+            <span class="count">{{ dist|dict_get:star|default:0 }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="overall-rating-box">
+      <div class="score">{{ avg_rating|default:"0.0" }}</div>
+      <div class="stars">
+        {% for i in "12345" %}
+          <i class="fas fa-star {% if forloop.counter > avg_rating %}star-empty{% endif %}"></i>
+        {% endfor %}
+      </div>
+      <div class="total-ratings">{{ total_ratings|default:0 }} reviews</div>
+    </div>
+  </section>
+
+  <section class="reviews-section-full">
+    <div class="recent-feedbacks">
+      <div class="section-header">
+        <div>
+            <h2>What Students Say</h2>
+            <p>Showing reviews for: <strong>{% if selected_lesson %}Specific Course{% else %}All Courses{% endif %}</strong></p>
+        </div>
+        
+        <form method="GET" action="{% url 'english:feedback' %}" class="filter-form">
+            <select name="course" onchange="this.form.submit()">
+                <option value="">All Courses</option>
+                {% for lesson in lessons %}
+                    <option value="{{ lesson.id }}" {% if selected_lesson == lesson.id|stringformat:"s" %}selected{% endif %}>
+                        {{ lesson.title }}
+                    </option>
+                {% endfor %}
+            </select>
+            <i class="fas fa-filter"></i>
+        </form>
+      </div>
+
+      <div class="feedback-grid">
+        {% for review in reviews %}
+        <div class="feedback-card">
+          {% if review.user.userprofile.avatar %}
+            <img src="{{ review.user.userprofile.avatar.url }}" class="avatar">
+          {% else %}
+            <div class="avatar-placeholder-small"><i class="fas fa-user"></i></div>
+          {% endif %}
+
+          <div class="feedback-content">
+            <div class="card-header">
+                <h4>{{ review.user.username }}</h4>
+                <small class="course-tag">{{ review.lesson.title }}</small>
+            </div>
+            <div class="stars">
+              {% for i in "12345" %}
+                <i class="fas fa-star {% if forloop.counter > review.rating %}star-empty{% endif %}"></i>
+              {% endfor %}
+            </div>
+            <p>{{ review.comment }}</p>
+            <span class="review-date">{{ review.created_at|date:"d M Y" }}</span>
+          </div>
+        </div>
+        {% empty %}
+        <div class="no-reviews">
+            <p>No reviews found for this selection.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'english/base.html' %}
+{% load static %}
+
+{% block title %}Course Catalog | QG Platform{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'catalog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container" style="padding-top: 50px;">
+    <div class="title">
+        Choose the most<br> suitable options for your kids
+    </div>
+
+    <!-- SEARCH -->
+    <div class="catalog-search-wrapper">
+        <form method="get" action="{% url 'english:catalog' %}" class="catalog-search">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search courses..."
+                value="{{ search_query }}"
+                class="catalog-search-input"
+            >
+            <button type="submit" class="catalog-search-btn">🔍</button>
+
+            {% if search_query %}
+                <a href="{% url 'english:catalog' %}" class="catalog-clear">✖</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- COURSES GRID -->
+    <div class="grid">
+        {% if lessons %}
+            {% for lesson in lessons %}
+                <div class="card {{ lesson.slug }}">
+                    <div class="tag-box">
+                        <div class="tag">{{ lesson.age_range }}</div>
+                        <div class="tag">{{ lesson.duration }} months</div>
+                    </div>
+
+                    <h3>COURSE {{ lesson.title|upper }}</h3>
+                    <p>{{ lesson.content_html|truncatechars:150 }}</p>
+
+                    <div class="price">
+                        {{ lesson.price }} tg/month
+                    </div>
+
+                    <!-- ONLY LEARN MORE -->
+                    <div class="learn">
+                        <a href="{% url 'english:lesson_detail' lesson.slug %}">
+                            Learn more →
+                        </a>
+                    </div>
+
+                    <img
+                        src="{% static 'images/catalog' %}{{ forloop.counter }}.png"
+                        alt="Course Image"
+                    >
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No courses are currently available or match your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- LEVEL CHECK -->
+<div class="level-check">
+    <div class="level-text">
+        <h2>DON’T KNOW YOUR LEVEL?</h2>
+        <p>
+            Let’s schedule an appointment together and find out your level
+            with 100% accuracy
+        </p>
+        <a href="#">
+            <button>Start the test now</button>
+        </a>
+    </div>
+    <div class="illustration">
+        <img src="{% static 'images/catalog5.png' %}" alt="Level Test Illustration">
+    </div>
+</div>
+
+<!-- CERTIFICATE -->
+<div class="certificate">
+    <div class="certificate-text">
+        <h2>Get a certificate that proves your level!</h2>
+        <p>
+            After completing one course (one language level), students take a
+            proficiency test and receive an electronic certificate aligned
+            with CEFR standards.
+        </p>
+    </div>
+    <div class="illustration-certificate">
+        <img src="{% static 'images/catalog6.png' %}" alt="Certificate Illustration">
+    </div>
+</div>
+
+{% endblock %}

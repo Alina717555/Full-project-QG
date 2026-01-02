@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+}
+.logo-img {
+  height: 66px; 
+  display: block;
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin-left: 30px; 
+}
+.navbar a {
+  text-decoration: none;
+  color: #000;
+  font-size: 18px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.nav-right .icon {
+  width: 22px;
+  cursor: pointer;
+}
+
+.title {
+    margin-left: 60px;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.course-section {
+    background: #f58663;
+    padding: 60px 60px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.course-info {
+    width: 45%;
+    color: white;
+}
+
+.course-info h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.description {
+    width: 80%;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.info {
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.payment-info {
+    width: 40%;
+    background: transparent;
+    color: white;
+}
+
+.total {
+    text-align: left;
+    font-weight: 800;
+    margin-bottom: 10px;
+
+}
+
+.payment-info h3 {
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-size: 14px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;  
+}
+
+.row div {
+    width: 50%;  
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-sizing: border-box; 
+}
+
+
+.save-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkout-btn {
+    background: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.paypal-btn {
+    background: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.paypal-btn img {
+    height: 20px;
+    object-fit: contain;
+}

@@ -1,0 +1,221 @@
+{% extends "english/base.html" %}
+{% load static %}
+
+{% block title %}QG Platform – Courses{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'courses.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="courses-hero">
+  <div class="courses-hero-overlay"></div>
+  
+  <div class="courses-hero-content">
+      <div class="courses-hero-text">
+          <h1>Our Course Program</h1>
+          <p>Choose your English path with us!</p>
+      </div>
+  </div>
+</section>
+
+
+<!-- FILTER (UI ONLY) -->
+<section class="filter-section">
+  <div class="container">
+      <div class="filter">
+          <div class="filter-left">
+              <button class="filter-btn">
+                  <i class="fas fa-filter"></i> Filter
+              </button>
+              <div class="search-wrapper">
+                  <i class="fas fa-search"></i>
+                  <input type="text" id="courseSearch" placeholder="Search for courses">
+              </div>
+          </div>
+
+          <div class="filter-right">
+              <span class="sort-label">Sort By</span>
+              <div class="select-wrapper">
+                  <select class="sort-select" id="courseSort">
+                      <option value="default">Available</option>
+                      <option value="title">Title (A–Z)</option>
+                      <option value="duration">Duration</option>
+                  </select>
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- ================= YOUR COURSES ================= -->
+<section class="courses-section">
+  <div class="container">
+    <h2 class="section-title">Your Courses</h2>
+
+    {% if enrolled_lessons %}
+    <div class="courses-grid your-courses-grid">
+      {% for lesson in enrolled_lessons %}
+      <div class="course-card highlighted">
+
+        <!-- COURSE IMAGE + BADGE -->
+        <div class="course-image
+          {% if lesson.slug == 'middle' %}blue-gradient
+          {% elif lesson.slug == 'high' %}orange-gradient
+          {% elif lesson.slug == 'expert' %}purple-gradient
+          {% else %}green-gradient{% endif %}">
+          <div class="gradient-animation"></div>
+          <span class="badge">
+            <i class="fas fa-layer-group"></i> {{ lesson.level }}
+          </span>
+        </div>
+
+        <div class="course-body">
+          <div class="title-row">
+            <h3 class="course-title">{{ lesson.title }}</h3>
+        
+            <div class="course-actions">
+              <a href="{% url 'english:course_material' lesson.slug %}" class="play-btn" title="Start Lesson">
+                  <i class="fas fa-play"></i>
+              </a>
+        
+              <form method="post" action="{% url 'english:remove_course' lesson.slug %}" class="remove-form">
+                {% csrf_token %}
+                <button type="submit" class="remove-btn" title="Remove Course">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+            
+            
+            </div>
+          </div>
+
+          <!-- META INFO -->
+          <div class="meta">
+            <span><i class="fas fa-user"></i> {{ lesson.age_range }}</span>
+            <span><i class="fas fa-clock"></i> {{ lesson.duration }} mon</span>
+          </div>
+
+          <!-- PROGRESS -->
+          <div class="progress-section">
+            <div class="progress-info">
+              <span>Completed:</span>
+              <span>0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <p class="empty-text">You have not added any courses yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+
+<!-- ================= AVAILABLE COURSES ================= -->
+<section class="courses-section available">
+  <div class="container">
+      <h2 class="section-title">Available Courses</h2>
+
+      <div class="courses-grid">
+          {% for lesson in lessons %}
+              {% if lesson not in enrolled_lessons %}
+              <div class="course-card">
+
+                  <div class="course-image
+                      {% if lesson.slug == 'expert' %}purple-gradient
+                      {% elif lesson.slug == 'high' %}orange-gradient
+                      {% elif lesson.slug == 'middle' %}blue-gradient
+                      {% else %}green-gradient{% endif %}">
+                      <div class="gradient-animation"></div>
+                      <span class="badge">
+                          <i class="fas fa-layer-group"></i> {{ lesson.level }}
+                      </span>
+                  </div>
+
+                  <div class="course-body">
+                      <div class="title-row">
+                          <h3 class="course-title">{{ lesson.title }}</h3>
+                      </div>
+
+                      <div class="meta">
+                          <span><i class="fas fa-user"></i> {{ lesson.age_range }}</span>
+                          <span><i class="fas fa-clock"></i> {{ lesson.duration }} mon</span>
+                      </div>
+
+                      <!-- PURCHASE BUTTON -->
+                      <a href="{% url 'english:payment_page' lesson.slug %}" class="btn btn-purple">
+                        Purchase
+                    </a>
+                    
+                  </div>
+              </div>
+              {% endif %}
+          {% endfor %}
+      </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  
+      const searchInput = document.getElementById('courseSearch');
+      const sortSelect = document.getElementById('courseSort');
+  
+      const grids = document.querySelectorAll('.courses-grid');
+  
+      function getCards() {
+          return Array.from(document.querySelectorAll('.courses-grid .course-card'));
+      }
+  
+   
+      searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase();
+  
+          getCards().forEach(card => {
+              const title = card.querySelector('.course-title').innerText.toLowerCase();
+              card.style.display = title.includes(query) ? '' : 'none';
+          });
+      });
+  
+  
+      sortSelect.addEventListener('change', () => {
+          const cards = getCards();
+          const value = sortSelect.value;
+  
+          let sortedCards = [...cards];
+  
+          if (value === 'title') {
+              sortedCards.sort((a, b) =>
+                  a.querySelector('.course-title').innerText
+                  .localeCompare(b.querySelector('.course-title').innerText)
+              );
+          }
+  
+          if (value === 'duration') {
+              sortedCards.sort((a, b) => {
+                  const da = parseInt(a.innerText.match(/(\d+)\s*mon/)?.[1] || 0);
+                  const db = parseInt(b.innerText.match(/(\d+)\s*mon/)?.[1] || 0);
+                  return da - db;
+              });
+          }
+  
+          grids.forEach(grid => {
+              sortedCards.forEach(card => grid.appendChild(card));
+          });
+      });
+  
+  });
+  </script>
+  
+
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends 'english/base.html' %}
+{% load static %}
+{% load lesson_extras %}  {# make sure lesson_extras.py exists with your custom filters #}
+
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'about.css' %}">
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% if lesson.slug == 'expert' %}
+    <link rel="stylesheet" href="{% static 'materials.css' %}">
+{% elif lesson.slug == 'middle' %}
+    <link rel="stylesheet" href="{% static 'materials2.css' %}">
+{% elif lesson.slug == 'super' %}
+    <link rel="stylesheet" href="{% static 'materials3.css' %}">
+{% elif lesson.slug == 'high' %}
+    <link rel="stylesheet" href="{% static 'materials1.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Materials | QG Platform{% endblock %}
+
+{% block content %}
+<div class="materials-container">
+
+    <!-- Course Info -->
+    <div class="course-left">
+        <h2>COURSE {{ lesson.title|upper }}</h2>
+        <p class="description">{{ lesson.description }}</p>
+        <p class="details">
+            <strong>Duration:</strong> {{ lesson.duration }} month{% if lesson.duration > 1 %}s{% endif %}<br>
+            <strong>Age range:</strong> {{ lesson.age_range }} yo<br>
+            <strong>Level:</strong> {{ lesson.level }}
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'english:payment_page' lesson.slug %}" class="purchase-btn">
+            Purchase
+        </a>
+        {% else %}
+        <a href="{% url 'users:login' %}" class="purchase-btn">Login to purchase</a>
+        {% endif %}
+    </div>
+
+    <!-- Materials List -->
+    <div class="course-right">
+        <h2>MATERIALS</h2>
+        <div class="materials-list">
+            {% for material in lesson.materials %}
+                <div class="material {% cycle 'white' 'purple' %}">{{ forloop.counter }}. {{ material }}</div>
+            {% endfor %}
+            <div class="price-box">{{ lesson.price|floatformat:0 }} tg/month</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Feedback & Ratings -->
+<div class="feedback-container">
+
+    <!-- Ratings Overview -->
+    <section class="ratings-overview">
+        <div class="rating-distribution">
+            <ul>
+                <ul>
+                    {% for star in "54321" %}
+                    <li>
+                        <span class="label">{{ star|int_to_word }}</span>
+                        <i class="fas fa-star"></i>
+                  
+                        <div class="progress-bar-container">
+                            <div class="progress-bar"
+                                 style="width: {{ reviews|percent_by_rating:star }}%;">
+                            </div>
+                        </div>
+                  
+                        <span class="count">{{ reviews|count_by_rating:star }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+              </ul>
+              
+              
+        </div>
+
+        <!-- Overall Score Box -->
+        <div class="overall-rating-box">
+            <div class="score">{{ avg_rating|floatformat:1 }}</div>
+            <div class="stars">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= avg_rating %}
+                        <i class="fas fa-star"></i>
+                    {% else %}
+                        <i class="fas fa-star star-empty"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="total-ratings">{{ reviews|length }} ratings</div>
+        </div>
+    </section>
+<!-- Recent Feedbacks -->
+<section class="reviews-section">
+    <div class="recent-feedbacks">
+        <h2>Recent Feedbacks</h2>
+
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="feedback-card">
+                <img 
+                    src="{% if review.user.userprofile.avatar %}{{ review.user.userprofile.avatar.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" 
+                    alt="{{ review.user.username }}" 
+                    class="avatar">
+                <div class="feedback-content">
+                    <h4>{{ review.user.username }}</h4>
+                    <div class="stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= review.rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="fas fa-star star-empty"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p>{{ review.comment }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet for this course.</p>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="add-review-form">
+        <h2>Add a Review</h2>
+        <form method="post" action="{% url 'english:add_review' lesson.slug %}">
+
+            {% csrf_token %}
+
+            <label>Add Your Rating*</label>
+            <select name="rating" required>
+                <option value="">Select rating</option>
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Very Poor</option>
+            </select>
+
+            <label for="review-input">Write Your Review*</label>
+            <textarea id="review-input" name="comment" placeholder="Write here..." required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% else %}
+    <p><a href="{% url 'users:login' %}">Login</a> to leave a review.</p>
+    {% endif %}
+</section>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'english/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <title>{{ lesson.title|default:"Chosen Course" }} Payment</title>
+{% endblock %}
+
+{% block css %}
+{% if lesson.slug == 'expert' %}
+    <link rel="stylesheet" href="{% static 'payment1.css' %}">
+{% elif lesson.slug == 'middle' %}
+    <link rel="stylesheet" href="{% static 'payment2.css' %}">
+{% elif lesson.slug == 'super' %}
+    <link rel="stylesheet" href="{% static 'payment3.css' %}">
+{% elif lesson.slug == 'high' %}
+    <link rel="stylesheet" href="{% static 'payment.css' %}">
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<h1 class="title">{{ lesson.title|default:"Chosen Course" }}</h1>
+
+<section class="course-section">
+    <div class="course-info">
+        <h2>{{ lesson.title|upper }}</h2>
+
+        <p class="description">{{ lesson.content_html|safe }}</p>
+
+        <p class="info"><strong>Duration:</strong> {{ lesson.duration_months|default:"6" }} month</p>
+        <p class="info"><strong>Age range:</strong> {{ lesson.age_range|default:"15-16" }}</p>
+        <p class="info"><strong>Level:</strong> {{ lesson.level|default:"A2-B1" }}</p>
+    </div>
+
+    <div class="payment-info">
+        <p class="total">Total: {{ lesson.price|default:"12.000" }}tg</p>
+
+        <h3>Payment Details</h3>
+
+        <form method="post" action="{% url 'english:process_payment' lesson_slug=lesson.slug %}">
+            {% csrf_token %}
+            
+            <label for="name">Name / Last Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+
+            <label for="card_number">Card number</label>
+            <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required 
+                   pattern="\d{4} ?\d{4} ?\d{4} ?\d{4}" title="16 digits card number">
+
+            <div class="row">
+                <div>
+                    <label for="expiry">Expire date</label>
+                    <input type="text" id="expiry" name="expiry" placeholder="07/27" required pattern="\d{2}/\d{2}" title="MM/YY">
+                </div>
+                <div>
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" required pattern="\d{3}" title="3 digit CVV">
+                </div>
+            </div>
+
+            <div class="save-card">
+                <input type="checkbox" id="save_card" name="save_card">
+                <label for="save_card">Save my card details</label>
+            </div>
+
+            <button class="checkout-btn" type="submit">Process to checkout</button>
+
+            <button class="paypal-btn" type="button">
+                <img src="{% static 'images/paypal2.png' %}" alt="PayPal" />
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extra_js %}{% endblock %}

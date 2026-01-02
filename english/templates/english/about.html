@@ -1,0 +1,132 @@
+{% extends 'english/base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'about.css' %}">
+{% endblock %}
+
+{% block title %}About us | QG Platform{% endblock %}
+
+{% block content %}
+<body>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Welcome to QG – <br>Your Journey Starts Here!</h1>
+                <p>
+                    At APEC, we believe your first year is more than just the beginning – it's the foundation of your academic and personal growth. Our mission is to support you every step of the way, helping you transition into university life with confidence, excitement, and a sense of belonging.
+                    This platform is designed especially for first-year students, to give you all the tools, information, and community connections you need to succeed.
+                </p>
+            </div>
+
+            <div class="hero-img">
+                <img src="{% static 'images/qgpic.jpg' %}" alt="qg">
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat-item">
+                <img src="{% static 'images/pic1.png' %}" class="stat-img" alt="">
+                <h3>50+ lessons</h3>
+            </div>
+
+            <div class="stat-item">
+                <img src="{% static 'images/pic2.png' %}" class="stat-img" alt="">
+                <h3>90+ successful students</h3>
+            </div>
+
+            <div class="stat-item">
+                <img src="{% static 'images/pic3.png' %}" class="stat-img" alt="">
+                <h3>senior students with the best results</h3>
+            </div>
+        </section>
+
+        <section class="about">
+            <h2>Who <span class="purple">We</span> Are?</h2>
+            <p class="about-text">
+                We are a group of passionate students and supportive mentors who believe that language is more than just words — it’s a way to connect, express, and grow.
+                The English Club is led by experienced upper-year students who are always ready to guide and help you improve your English in a fun and stress-free environment. We come from different backgrounds, majors — but we’re united by a shared goal: to create a welcoming space where everyone feels comfortable speaking and learning English.
+            </p>
+        </section>
+
+        <section class="what">
+            <h2>What <span class="purple">We Do</span>?</h2>
+
+            <div class="toggle-container">
+                <input type="checkbox" id="toggle1" class="accordion-toggle" hidden>
+                
+                <label for="toggle1" class="card">
+                    <p>Help with assignments</p>
+                    <span class="arrow" aria-expanded="false">→</span>
+                </label>
+                
+                <div class="hidden-info">
+                    <ul>
+                        <li>Contact Assignment</li>
+                        <li>Workplace Assignment</li>
+                        <li>Journal</li>
+                        <li>Culture Assignment</li>
+                        <li>Midterm Assignment</li>
+                        <li>Final Exam - Speaking + Writing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="toggle-container">
+                <input type="checkbox" id="toggle2" class="accordion-toggle" hidden>
+                <label for="toggle2" class="card">
+                    <p>Provide real-life classes</p>
+                    <span class="arrow" aria-expanded="false">→</span>
+                </label>
+                <div class="hidden-info">
+                    <p>Real examples and materials from senior students, offline explanation by presentations and visual games.</p>
+                </div>
+            </div>
+
+            <div class="toggle-container">
+                <input type="checkbox" id="toggle3" class="accordion-toggle" hidden>
+                <label for="toggle3" class="card">
+                    <p>Offer some special games and quizzes</p>
+                    <span class="arrow" aria-expanded="false">→</span>
+                </label>
+                <div class="hidden-info">
+                    <p>Kahoot, Quizlet, Jeopardylabs, Gimkit and etc.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Interested in applying?</h2>
+      <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" rows="4"></textarea>
+        <button type="submit">SUBMIT</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("contactModal");
+      const btn = document.querySelector(".btn-outline"); 
+      const closeBtn = document.querySelector(".close");
+
+      btn.addEventListener("click", () => modal.style.display = "flex");
+      closeBtn.addEventListener("click", () => modal.style.display = "none");
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      });
+    });
+  </script>
+
+</body>
+
+</html>
+{%endblock%}

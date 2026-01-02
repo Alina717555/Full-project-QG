@@ -1,0 +1,163 @@
+* {
+box-sizing: border-box;
+font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+margin: 0;
+background: #ffffff;
+color: #111827;
+}
+
+.page {
+display: grid;
+grid-template-columns: 2.4fr 1fr;
+gap: 48px;
+padding: 48px 64px;
+}
+
+h1 {
+font-size: 32px;
+margin-bottom: 24px;
+}
+
+h2 {
+font-size: 20px;
+margin-bottom: 18px;
+}
+
+.lessons {
+display: flex;
+gap: 70px;
+margin-bottom: 42px;
+}
+
+.lesson {
+width: 260px;
+position: relative;
+}
+
+.lesson img {
+width: 100%;
+height: 150px;
+object-fit: cover;
+border-radius: 14px;
+}
+
+.time {
+position: absolute;
+bottom: 42px;
+left: 10px;
+background: rgba(0,0,0,0.65);
+color: white;
+font-size: 12px;
+padding: 4px 8px;
+border-radius: 8px;
+}
+
+.lesson p {
+margin-top: 10px;
+font-size: 14px;
+}
+
+.main-video {
+position: relative;
+border-radius: 18px;
+overflow: hidden;
+}
+
+.main-video img {
+width: 100%;
+height: 420px;
+object-fit: cover;
+}
+
+.overlay {
+position: absolute;
+top: 32px;
+left: 32px;
+color: white;
+}
+
+.overlay h3 {
+font-size: 28px;
+margin-bottom: 6px;
+}
+
+.overlay span {
+font-size: 14px;
+opacity: 0.85;
+}
+
+.sidebar h2 {
+font-size: 22px;
+margin-bottom: 12px;
+}
+
+.progress {
+height: 6px;
+background: #e5e7eb;
+border-radius: 999px;
+margin-bottom: 26px;
+overflow: hidden;
+}
+
+.progress-fill {
+width: 45%;
+height: 100%;
+background: #7c3aed;
+}
+
+.tasks {
+list-style: none;
+padding: 0;
+margin-bottom: 40px;
+}
+
+.tasks li {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid #e5e7eb;
+font-size: 14px;
+}
+
+.tasks li.done {
+color: #6d28d9;
+font-weight: 500;
+}
+
+.icon {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+border: 2px solid #a78bfa;
+}
+
+.icon.filled {
+background: #7c3aed;
+border-color: #7c3aed;
+}
+
+.sidebar h3 {
+font-size: 18px;
+margin-bottom: 14px;
+}
+
+.card {
+background: #f9fafb;
+padding: 22px;
+border-radius: 14px;
+}
+
+.card h4 {
+font-size: 16px;
+margin-bottom: 10px;
+}
+
+.card p {
+font-size: 13px;
+line-height: 1.6;
+color: #4b5563;
+}

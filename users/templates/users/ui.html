@@ -1,0 +1,338 @@
+{% extends 'english/base.html' %}
+{% load static %}
+
+{% block title %}QG Platform – Profile{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'ui.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Profile Modal -->
+<div id="profileModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-profile">&times;</span>
+    <h3>Update Profile</h3>
+    <form id="updateProfileForm">
+      {% csrf_token %}
+      <div class="form-row">
+        <input type="text" id="updateName" placeholder="Full Name" required>
+        <select id="updateGender" required>
+          <option value="">Select Gender</option>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input type="date" id="updateDob" required>
+        <select id="updateLevel" required>
+          <option value="">Select Level</option>
+          <option value="Beginner/A1">Beginner/A1</option>
+          <option value="Elementary/A2">Elementary/A2</option>
+          <option value="Intermediate/B1">Intermediate/B1</option>
+          <option value="Upper-Intermediate/B2">Upper-Intermediate/B2</option>
+          <option value="Advanced/C1">Advanced/C1</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-submit">Update Profile</button>
+    </form>
+  </div>
+</div>
+
+<main class="profile-page">
+  <section class="profile-left">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Welcome back, <b>{{ user.username }}</b></h1>
+      <p class="subtitle">New classes are available.<br>Middle, High, Super, Expert.</p>
+      <a href="{% url 'english:catalog' %}" class="btn-buy">Buy lesson</a>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+      <div class="section-header">
+        <h2>Update profile</h2>
+        <button class="btn-edit" id="editProfileBtn">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+      </div>
+      <div class="profile-data">
+        <div class="col">
+          <div><span>Name</span><b>{{ user.first_name|default:user.username }}</b></div>
+          <div><span>Gender</span><b>{{ profile.gender|default:"Not set" }}</b></div>
+          <div><span>DOB</span><b>{{ profile.dob|date:"d.m.Y"|default:"—" }}</b></div>
+          <div><span>Level</span><b>{{ profile.level|default:"Not set" }}</b></div>
+        </div>
+        <div class="col">
+          <div><span>Mentor</span><b>Alina</b></div>
+          <div><span>Completed</span><b>{{ profile.get_completed_count }} lessons</b></div>
+          <div><span>Current score</span><b>{{ profile.get_average_score }}%</b></div>
+          <div><span>Test 1</span><b>{{ test1_score|default:"0" }}%</b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="progress-section">
+      <h2>Your Progress</h2>
+      <div class="progress-container">
+        <div class="progress-card">
+          <div class="progress-header">
+            <small>GLOBAL PROGRESS</small>
+            <strong>{{ profile.level|default:"A1" }}</strong>
+          </div>
+          <div class="progress-line">
+            <div class="progress-fill" style="width: {{ profile.get_progress_percentage }}%"></div>
+          </div>
+          <div class="progress-footer">
+            <span>Overall Path</span>
+            <b>{{ profile.get_progress_percentage }}%</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates Section -->
+    <div class="certificates-section">
+      <h2>Your Certificates</h2>
+      <div class="certificates-container">
+        <div class="cert-placeholder">
+          <i class="fas fa-award"></i>
+          <p>No certificates yet</p>
+          <small>Complete courses to earn certificates</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right Sidebar -->
+  <aside class="profile-right">
+    <div class="right-inner">
+      <!-- Avatar Upload -->
+      <div class="avatar-container">
+        <label class="avatar" for="avatarUpload">
+          {% if profile.avatar %}
+            <img id="avatarPreview" src="{{ profile.avatar.url }}" alt="Profile picture">
+          {% else %}
+            <div id="avatarPlaceholder" class="avatar-placeholder">
+              
+            </div>
+          {% endif %}
+          <div class="avatar-overlay"><i class="fas fa-camera"></i></div>
+          <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
+        </label>
+        <small class="avatar-hint">Click to upload photo</small>
+      </div>
+
+      <!-- User Block with Profile Button -->
+      <div class="user-block">
+        <b id="sidebarName">{{ user.username }}</b>
+        <span>Student</span>
+        <button class="btn-profile">Profile</button>
+      </div>
+
+      <!-- Calendar -->
+      <div class="calendar-container">
+        <h3>Schedule</h3>
+        <div class="calendar">
+          <div class="calendar-header">
+            <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+            <div id="currentMonth"></div>
+            <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="calendar-week">
+            <span>Sun</span><span>Mon</span><span>Tue</span>
+            <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendarDays" class="calendar-days"></div>
+        </div>
+
+        <div class="calendar-events">
+          {% for lesson in today_lessons %}
+            <div class="event">
+              <div class="event-time">Lesson</div>
+              <div class="event-details">
+                <strong>{{ lesson.title }}</strong>
+                <span>Available</span>
+              </div>
+            </div>
+          {% empty %}
+            <p class="no-events">No lessons today.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Recent Quizzes -->
+      <div class="quiz-container">
+        <h3>Recent Quizzes</h3>
+        {% for quiz in recent_quizzes %}
+          <div class="quiz">
+            <div class="quiz-info">
+              <span class="quiz-title">{{ quiz.quiz_name }}</span>
+              <span class="quiz-status done">completed</span>
+            </div>
+            <div class="quiz-score">Score: {{ quiz.score }}%</div>
+          </div>
+        {% empty %}
+          <p class="no-events">No recent quizzes found.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- JS -->
+<script>
+  class Calendar {
+    constructor() {
+      this.currentDate = new Date();
+      this.lessonsByDate = {{ lessons_by_date|safe }};
+      this.selectedDate = null;
+      this.renderCalendar();
+      this.setupEvents();
+    }
+  
+    renderCalendar() {
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const daysContainer = document.getElementById("calendarDays");
+      const currentMonthEl = document.getElementById("currentMonth");
+  
+      currentMonthEl.textContent = monthNames[this.currentDate.getMonth()] + " " + this.currentDate.getFullYear();
+      daysContainer.innerHTML = "";
+  
+      const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1).getDay();
+      const totalDays = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth()+1, 0).getDate();
+  
+      // Empty days for alignment
+      for (let i = 0; i < firstDay; i++) {
+        const emptySpan = document.createElement("span");
+        emptySpan.classList.add("empty-day");
+        daysContainer.appendChild(emptySpan);
+      }
+  
+      // Render days
+      for (let d = 1; d <= totalDays; d++) {
+        const el = document.createElement("span");
+        el.textContent = d;
+  
+        const dateStr = `${this.currentDate.getFullYear()}-${(this.currentDate.getMonth()+1).toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+  
+        if (this.lessonsByDate[dateStr]) el.classList.add("event-day");
+  
+        el.onclick = () => this.selectDate(dateStr);
+  
+        daysContainer.appendChild(el);
+      }
+    }
+  
+    setupEvents() {
+      document.getElementById("prevMonth").onclick = () => this.changeMonth(-1);
+      document.getElementById("nextMonth").onclick = () => this.changeMonth(1);
+    }
+  
+    changeMonth(offset) {
+      this.currentDate.setMonth(this.currentDate.getMonth() + offset);
+      this.renderCalendar();
+      this.clearSelected();
+    }
+  
+    selectDate(dateStr) {
+      this.selectedDate = dateStr;
+      this.highlightSelected(dateStr);
+      this.showLessons(dateStr);
+    }
+  
+    highlightSelected(dateStr) {
+      document.querySelectorAll("#calendarDays span").forEach(span => {
+        span.classList.remove("selected-day");
+      });
+  
+      const day = Number(dateStr.split('-')[2]);
+      const spans = document.querySelectorAll("#calendarDays span");
+      spans.forEach(span => {
+        if (Number(span.textContent) === day) span.classList.add("selected-day");
+      });
+    }
+  
+    showLessons(dateStr) {
+      const container = document.querySelector(".calendar-events");
+      container.innerHTML = "";
+      const lessons = this.lessonsByDate[dateStr] || [];
+      if (lessons.length === 0) {
+        container.innerHTML = "<p class='no-events'>No lessons on this day.</p>";
+        return;
+      }
+      lessons.forEach(lesson => {
+        const div = document.createElement("div");
+        div.classList.add("event");
+        div.innerHTML = `<div class="event-time">Lesson</div><div class="event-details"><strong>${lesson.title}</strong></div>`;
+        container.appendChild(div);
+      });
+    }
+  
+    clearSelected() {
+      document.querySelector(".calendar-events").innerHTML = "<p class='no-events'>Select a date to see lessons.</p>";
+    }
+  }
+  
+
+class ProfileManager {
+  constructor() { this.init(); }
+
+  init() {
+    this.setupModal();
+    this.setupAvatarUpload();
+  }
+
+  setupModal() {
+    const modal = document.getElementById("profileModal");
+    const btn = document.getElementById("editProfileBtn");
+
+    btn.onclick = () => {
+      document.getElementById("updateName").value = "{{ user.first_name|default:user.username }}";
+      document.getElementById("updateGender").value = "{{ profile.gender|default:'' }}";
+      document.getElementById("updateDob").value = "{{ profile.dob|date:'Y-m-d' }}";
+      document.getElementById("updateLevel").value = "{{ profile.level|default:'' }}";
+      modal.style.display = "flex";
+    };
+
+    document.querySelector(".close-profile").onclick = () => modal.style.display = "none";
+
+    document.getElementById("updateProfileForm").onsubmit = (e) => {
+      e.preventDefault();
+      fetch("{% url 'users:update_profile_ajax' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({
+          name: document.getElementById("updateName").value,
+          gender: document.getElementById("updateGender").value,
+          dob: document.getElementById("updateDob").value,
+          level: document.getElementById("updateLevel").value
+        })
+      }).then(r => r.ok ? location.reload() : alert("Update failed"));
+    };
+  }
+
+  setupAvatarUpload() {
+    const upload = document.getElementById("avatarUpload");
+    upload.onchange = () => {
+      const form = new FormData();
+      form.append("avatar", upload.files[0]);
+      form.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+
+      fetch("{% url 'users:upload_avatar' %}", { method: "POST", body: form })
+        .then(r => r.ok ? location.reload() : alert("Upload failed"));
+    };
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  new Calendar();
+  new ProfileManager();
+});
+</script>
+{% endblock %}

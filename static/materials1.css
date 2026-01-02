@@ -1,0 +1,315 @@
+/* MAIN WRAPPER */
+.materials-container {
+    width: 80%;
+    margin: 80px auto;
+    display: flex;
+    border: 3px solid #FD7C55;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* LEFT SIDE */
+.course-left {
+    flex: 1;
+    padding: 50px 40px;
+    border-right: 3px solid #FD7C55;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.course-left h2 {
+    font-size: 54px;
+    color: #FD7C55;
+}
+
+.description {
+    max-width: 330px;
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.details {
+    margin-bottom: 30px;
+    color: #FD7C55;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+.purchase-btn {
+    border: 2px solid #FD7C55;
+    padding: 10px 25px;
+    color: #FD7C55;
+    font-size: 16px;
+    border-radius: 8px;
+    background: none;
+    font-weight: 500;
+    cursor: pointer;
+    max-width: 200px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.purchase-btn a {
+    text-decoration: none;
+}
+
+.purchase-btn:hover {
+    background: #FD7C55;
+    color: white;
+}
+
+/* RIGHT SIDE */
+.course-right {
+    flex: 1;
+    background: #FD7C55;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.course-right h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+/* MATERIALS LIST */
+.materials-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.material {
+    padding: 15px;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border-radius: 0 0 20px 20px; 
+}
+
+.white {
+    background: #fff;
+}
+
+.purple {
+    background: #FD7C55;
+    color: white
+}
+
+.price-box {
+    background: #fff;
+    border: 2px solid #FD7C55;
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    width: 70%;
+    margin: 40px auto 0; /* center it */
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.price-box:hover {
+    background: #f2f2f2;
+}
+
+ /* --- Star Colors --- */
+  .fa-star {
+    color: #A355B8; /* Filled purple star */
+  }
+  .star-empty {
+    color: #d1b3ff; /* Light purple star */
+  }
+  
+  /* --- Main Container --- */
+  .feedback-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  /* --- Ratings Overview (Top Section) --- */
+  .ratings-overview {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+    align-items: center;
+  }
+  
+  /* Rating Bars */
+  .rating-distribution ul {
+    list-style: none;
+  }
+  .rating-distribution li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .rating-distribution .label {
+    width: 50px;
+    font-weight: 500;
+    color: #333;
+  }
+  .progress-bar-container {
+    flex-grow: 1;
+    height: 12px;
+    background: #f0e6ff;
+    border-radius: 6px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: #FD7C55;
+    border-radius: 6px;
+  }
+  .rating-distribution .count {
+    font-weight: 600;
+    width: 30px;
+    text-align: right;
+  }
+  
+  /* Overall Score Box */
+  .overall-rating-box {
+    background: #f5efff;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(125, 48, 242, 0.1);
+  }
+  .overall-rating-box .score {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #FD7C55;
+    line-height: 1;
+  }
+  .overall-rating-box .stars {
+    margin: 10px 0;
+  }
+  .overall-rating-box .stars .fa-star {
+    font-size: 1.3rem;
+    margin: 0 3px;
+  }
+  .overall-rating-box .total-ratings {
+    font-weight: 500;
+    color: #555;
+  }
+  
+  /* --- Reviews Section (Bottom Section) --- */
+  .reviews-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+  }
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+  }
+  
+  /* Recent Feedbacks */
+  .feedback-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: #fff;
+    border: 2px solid #f0e6ff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  }
+  .feedback-card .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .feedback-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .feedback-content .stars .fa-star {
+    font-size: 0.9rem;
+  }
+  .feedback-content p {
+    color: #666;
+    margin-top: 8px;
+  }
+  
+  /* Add Review Form */
+  .add-review-form {
+    background: #fcfaff;
+    border: 2px solid #f0e6ff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    align-self: flex-start; /* Makes it stick to top */
+  }
+  .add-review-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 15px;
+  }
+  .add-review-form .stars-input .fa-star {
+    font-size: 1.3rem;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .add-review-form input,
+  .add-review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0cffc;
+    border-radius: 10px;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+  }
+  .add-review-form textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  .add-review-form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #FD7C55;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(125, 48, 242, 0.2);
+    transition: background-color 0.2s;
+  }
+  .add-review-form button:hover {
+    background: #f86f45;
+  }
+  
+  /* --- Responsive --- */
+  @media (max-width: 900px) {
+    .ratings-overview,
+    .reviews-section {
+      grid-template-columns: 1fr;
+    }
+    
+    .ratings-overview {
+      grid-auto-flow: dense; /* Allows reordering */
+    }
+  
+    .overall-rating-box {
+      grid-row: 1; /* Moves score box to the top on mobile */
+    }
+  }
